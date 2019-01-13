@@ -10,10 +10,24 @@ public class WorstFit
 	 */
 	static ArrayList<Integer> worstFit(int sizeOfBlocks[], int sizeOfProcesses[])
 	{
-		/*
-		 * Put your code in here!
-		 */
-		
+		ArrayList<Integer> memAlloc = new ArrayList<>();
+		for (int i = 0; i < sizeOfProcesses.length; i++){
+			int maxSize = 0;
+			int block = -1;
+			for (int j = 0; j < sizeOfBlocks.length; j++){
+				if (sizeOfBlocks[j] > sizeOfProcesses[i] && maxSize < sizeOfBlocks[j] - sizeOfProcesses[i]){
+					maxSize = sizeOfBlocks[j] - sizeOfProcesses[i];
+					block = j;
+				}
+			}
+			if (block == -1){
+				memAlloc.add(-255);
+			} else {
+				sizeOfBlocks[block] -= sizeOfProcesses[i];
+				memAlloc.add(block);
+			}
+		}
+		return memAlloc;
 	} 
 	
 	// Method to print the memory allocation
